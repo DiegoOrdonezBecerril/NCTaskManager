@@ -48,9 +48,7 @@ public class TaskImpl implements Task {
     }
 
     /**
-     * Returns the task title.
-     *
-     * @return The title.
+     * {@inheritDoc}
      */
     @Override
     public String getTitle() {
@@ -58,9 +56,7 @@ public class TaskImpl implements Task {
     }
 
     /**
-     * Sets the task title from a String.
-     *
-     * @param title the argument who will be set as title
+     * {@inheritDoc}
      */
     @Override
     public void setTitle(String title) {
@@ -68,9 +64,7 @@ public class TaskImpl implements Task {
     }
 
     /**
-     * Returns the task status.
-     *
-     * @return the value true if it's active or false if it's not.
+     * {@inheritDoc}
      */
     @Override
     public boolean isActive() {
@@ -78,9 +72,7 @@ public class TaskImpl implements Task {
     }
 
     /**
-     * Sets the task status from a boolean.
-     *
-     * @param active the argument who will be set as status
+     * {@inheritDoc}
      */
     @Override
     public void setActive(boolean active) {
@@ -88,9 +80,7 @@ public class TaskImpl implements Task {
     }
 
     /**
-     * Returns the task time, if task is a repetitive one, it will return the task start time.
-     *
-     * @return the time or start time if task is not repetitive.
+     * {@inheritDoc}
      */
     @Override
     public int getTime() {
@@ -98,10 +88,7 @@ public class TaskImpl implements Task {
     }
 
     /**
-     * Sets the task time from an integer, if the task
-     * is repetitive, it will become in a non-repetitive one.
-     *
-     * @param time the argument who will be set as time
+     * {@inheritDoc}
      */
     @Override
     public void setTime(int time) {
@@ -116,9 +103,7 @@ public class TaskImpl implements Task {
     }
 
     /**
-     * Returns the task start time, if task is a non-repetitive, it will return the task time.
-     *
-     * @return the start time or time if task is not repetitive.
+     * {@inheritDoc}
      */
     @Override
     public int getStartTime() {
@@ -126,9 +111,7 @@ public class TaskImpl implements Task {
     }
 
     /**
-     * Returns the task end time, if task is a non-repetitive, it will return the task time.
-     *
-     * @return the end time or time if task is not repetitive.
+     * {@inheritDoc}
      */
     @Override
     public int getEndTime() {
@@ -136,9 +119,7 @@ public class TaskImpl implements Task {
     }
 
     /**
-     * Returns the task repeat interval, if task is a non-repetitive, it will return zero.
-     *
-     * @return the repeat interval or zero if task is not repetitive.
+     * {@inheritDoc}
      */
     @Override
     public int getRepeatInterval() {
@@ -146,12 +127,7 @@ public class TaskImpl implements Task {
     }
 
     /**
-     * Sets the task start time, task end time and task repeat
-     * interval, if task is a non-repetitive one, it will become in repetitive.
-     *
-     * @param start the argument who will be set as start time
-     * @param end the argument who will be set as end time
-     * @param interval the argument who will be set as repeat interval
+     * {@inheritDoc}
      */
     @Override
     public void setTime(int start, int end, int interval) {
@@ -166,12 +142,42 @@ public class TaskImpl implements Task {
     }
 
     /**
-     * Returns the task repeatability.
-     *
-     * @return the value true if it's repetitive or false if it's not.
+     * {@inheritDoc}
      */
     @Override
     public boolean isRepeated() {
         return this.repeatInterval > 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int nextTimeAfter(int current) {
+        int nextTime;
+
+        /*
+        In both cases if current is less than the time or start time,
+        the value returned by the getTime method will be the next
+        execution time, if it's greater or equal and the task is repetitive
+        the next execution time have to be computed.
+         */
+        if (current < this.getTime()) {
+            nextTime = this.getTime();
+        } else if(isRepeated()) {
+            int sT = this.getStartTime();
+            int eT = this.getEndTime();
+            int rI = this.getRepeatInterval();
+
+            int maxRepeatedTimes = (eT - sT) / rI;
+            int limit = (maxRepeatedTimes * rI) + sT - rI;
+            int computedNextTime = (((current - sT) / rI) * rI) + sT + rI;
+
+            nextTime = computedNextTime <= limit ? computedNextTime : -1;
+        } else {
+            nextTime = -1;
+        }
+
+        return nextTime;
     }
 }
