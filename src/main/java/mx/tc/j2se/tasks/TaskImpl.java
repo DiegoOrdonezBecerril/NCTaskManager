@@ -160,7 +160,7 @@ public class TaskImpl implements Task {
         In both cases if current is less than the time or start time,
         the value returned by the getTime method will be the next
         execution time, if it's greater or equal and the task is repetitive
-        the next execution time have to be computed.
+        the next execution time has to be computed.
          */
         if (current < this.getTime()) {
             nextTime = this.getTime();
