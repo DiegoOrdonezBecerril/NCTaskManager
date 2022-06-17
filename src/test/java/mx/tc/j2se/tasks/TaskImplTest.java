@@ -169,6 +169,9 @@ public class TaskImplTest {
         Task nonRepetitiveTask = new TaskImpl("Meeting in a café", 10);
         Task repetitiveTask = new TaskImpl("Meeting in a café", 10, 20, 3);
 
+        nonRepetitiveTask.setActive(true);
+        repetitiveTask.setActive(true);
+
         //Non-repetitive validation
         assertEquals(10, nonRepetitiveTask.nextTimeAfter(8));
         assertEquals(-1, nonRepetitiveTask.nextTimeAfter(11));
