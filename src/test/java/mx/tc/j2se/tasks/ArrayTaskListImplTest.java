@@ -83,7 +83,7 @@ public class ArrayTaskListImplTest {
         ArrayTaskList subset = arrayTaskList.incoming(10, 16);
 
         assertEquals(2, subset.size());
-        assertEquals("Meeting with friends", subset.getTask(0).getTitle());
-        assertEquals("Lunch with a beautiful girl", subset.getTask(1).getTitle());
+        assertEquals(task2, subset.getTask(0));
+        assertEquals(task4, subset.getTask(1));
     }
 }
