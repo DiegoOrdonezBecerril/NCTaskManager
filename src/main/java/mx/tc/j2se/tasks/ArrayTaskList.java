@@ -35,4 +35,15 @@ public interface ArrayTaskList {
      * @return the task specified by the index or null if it does not exist.
      */
     Task getTask(int index);
+
+    /**
+     * Returns a ArrayTaskList object with a subset of tasks that are scheduled
+     * for execution at least once in a specified time-lapse.
+     *
+     * @param from the argument who will be used as time-lapse beginning
+     * @param to the argument who will be used as time-lapse ending
+     *
+     * @return a subset of tasks scheduled in the time-lapse specified.
+     */
+    ArrayTaskList incoming(int from, int to);
 }

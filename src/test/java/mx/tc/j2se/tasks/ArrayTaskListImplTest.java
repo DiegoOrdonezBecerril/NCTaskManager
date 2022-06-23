@@ -60,4 +60,29 @@ public class ArrayTaskListImplTest {
         assertEquals(task2, arrayTaskList.getTask(1));
         assertNull(arrayTaskList.getTask(10));
     }
+
+    @Test
+    public void incomingTest() {
+        ArrayTaskList arrayTaskList = new ArrayTaskListImpl();
+        Task task1 = new TaskImpl("Meeting in a café", 10);
+        Task task2 = new TaskImpl("Meeting with friends", 10, 20, 2);
+        Task task3 = new TaskImpl("Taking medication", 5, 15, 8);
+        Task task4 = new TaskImpl("Lunch with a beautiful girl", 13);
+
+        task1.setActive(true);
+        task2.setActive(true);
+        task3.setActive(true);
+        task4.setActive(true);
+
+        arrayTaskList.add(task1);
+        arrayTaskList.add(task2);
+        arrayTaskList.add(task3);
+        arrayTaskList.add(task4);
+
+        ArrayTaskList subset = arrayTaskList.incoming(10, 16);
+
+        assertEquals(2, subset.size());
+        assertEquals("Meeting with friends", subset.getTask(0).getTitle());
+        assertEquals("Lunch with a beautiful girl", subset.getTask(1).getTitle());
+    }
 }
