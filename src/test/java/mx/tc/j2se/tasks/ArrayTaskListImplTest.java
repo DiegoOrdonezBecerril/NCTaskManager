@@ -32,6 +32,7 @@ public class ArrayTaskListImplTest {
         assertTrue(arrayTaskList.remove(task));
         assertEquals(0, arrayTaskList.size());
         assertFalse(arrayTaskList.remove(task));
+        assertFalse(arrayTaskList.remove(null));
     }
 
     @Test

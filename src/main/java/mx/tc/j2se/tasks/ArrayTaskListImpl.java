@@ -34,7 +34,7 @@ public class ArrayTaskListImpl implements ArrayTaskList {
                 this.list[i - 1] = this.list[i];
             }
 
-            if(!removed && task.equals(this.list[i])){
+            if(!removed && task != null && task.equals(this.list[i])){
                 this.list[i] = null;
                 removed = true;
             }
