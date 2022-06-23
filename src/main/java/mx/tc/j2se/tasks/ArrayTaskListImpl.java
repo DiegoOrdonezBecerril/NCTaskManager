@@ -74,12 +74,9 @@ public class ArrayTaskListImpl implements ArrayTaskList {
 
         for (int i = 0; i < this.size(); i++) {
             Task task = this.getTask(i);
-            if (task != null && task.isActive()) {
-                if (!task.isRepeated() && task.getTime() > from && task.getTime() < to) {
-                    arrayTaskList.add(task);
-                } else if (task.isRepeated() && task.nextTimeAfter(from) != -1 && task.nextTimeAfter(from) < to) {
-                    arrayTaskList.add(task);
-                }
+            int next = task != null ? task.nextTimeAfter(from) : -1;
+            if (next > from && next < to) {
+                arrayTaskList.add(task);
             }
         }
 
