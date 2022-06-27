@@ -23,7 +23,11 @@ public class TaskImpl implements Task {
      * @param title the argument who will be set as task title
      * @param time the argument who will be set as time
      */
-    public TaskImpl(String title, int time) {
+    public TaskImpl(String title, int time) throws IllegalArgumentException {
+        if (time < 0) {
+            throw new IllegalArgumentException("Time can not be a negative number");
+        }
+
         this.active = false;
         this.title = title;
         this.time = time;
@@ -39,7 +43,15 @@ public class TaskImpl implements Task {
      * @param end the argument who will be set as end time
      * @param interval the argument who will be set as repeat interval
      */
-    public TaskImpl(String title, int start, int end, int interval) {
+    public TaskImpl(String title, int start, int end, int interval) throws IllegalArgumentException {
+        if (start < 0) {
+            throw new IllegalArgumentException("The start time can not be a negative number");
+        } else if (end <= start) {
+            throw new IllegalArgumentException("The end time must be greater than start time");
+        } else if (interval <= 0) {
+            throw new IllegalArgumentException("The repeat interval can not be equals or less than zero");
+        }
+
         this.active = false;
         this.title = title;
         this.startTime = start;
@@ -91,7 +103,11 @@ public class TaskImpl implements Task {
      * {@inheritDoc}
      */
     @Override
-    public void setTime(int time) {
+    public void setTime(int time) throws IllegalArgumentException {
+        if (time < 0) {
+            throw new IllegalArgumentException("Time can not be a negative number");
+        }
+
         this.time = time;
 
         //If task is repetitive, we become it into a non-repetitive, restoring some properties to the default value
@@ -130,7 +146,15 @@ public class TaskImpl implements Task {
      * {@inheritDoc}
      */
     @Override
-    public void setTime(int start, int end, int interval) {
+    public void setTime(int start, int end, int interval) throws IllegalArgumentException {
+        if (start < 0) {
+            throw new IllegalArgumentException("The start time can not be a negative number");
+        } else if (end <= start) {
+            throw new IllegalArgumentException("The end time must be greater than start time");
+        } else if (interval <= 0) {
+            throw new IllegalArgumentException("The repeat interval can not be equals or less than zero");
+        }
+
         this.startTime = start;
         this.endTime = end;
         this.repeatInterval = interval;

@@ -59,7 +59,6 @@ public class ArrayTaskListImplTest {
 
         assertEquals(task1, arrayTaskList.getTask(0));
         assertEquals(task2, arrayTaskList.getTask(1));
-        assertNull(arrayTaskList.getTask(10));
     }
 
     @Test

@@ -15,7 +15,11 @@ public class ArrayTaskListImpl implements ArrayTaskList {
      * {@inheritDoc}
      */
     @Override
-    public void add(Task task) {
+    public void add(Task task) throws IllegalArgumentException {
+        if (task == null) {
+            throw new IllegalArgumentException("Task can not be null");
+        }
+
         Task[] temp = new Task[this.list.length + 1];
         System.arraycopy(this.list, 0, temp, 0, this.list.length);
         temp[temp.length - 1] = task;
@@ -61,8 +65,12 @@ public class ArrayTaskListImpl implements ArrayTaskList {
      * {@inheritDoc}
      */
     @Override
-    public Task getTask(int index) {
-        return this.size() > index ? this.list[index] : null;
+    public Task getTask(int index) throws IndexOutOfBoundsException {
+        if (this.size() <= index) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        return this.list[index];
     }
 
     /**
