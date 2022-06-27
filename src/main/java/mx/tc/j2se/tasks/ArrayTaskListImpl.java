@@ -7,12 +7,14 @@ public class ArrayTaskListImpl implements ArrayTaskList {
     private Task[] list = new Task[0];
 
     /**
-     * Constructs a task without set any property
+     * Constructs an array task list without set any property
      */
     public ArrayTaskListImpl() {}
 
     /**
      * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException when task is null.
      */
     @Override
     public void add(Task task) throws IllegalArgumentException {
@@ -63,6 +65,8 @@ public class ArrayTaskListImpl implements ArrayTaskList {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws IndexOutOfBoundsException
      */
     @Override
     public Task getTask(int index) throws IndexOutOfBoundsException {
@@ -75,9 +79,17 @@ public class ArrayTaskListImpl implements ArrayTaskList {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException when 'from' or 'to' are negative numbers or when 'to' is less or equals than 'from'
      */
     @Override
-    public ArrayTaskList incoming(int from, int to) {
+    public ArrayTaskList incoming(int from, int to) throws IllegalArgumentException {
+        if (from < 0 || to < 0) {
+            throw new IllegalArgumentException("'from' or 'to' can not be a negative number");
+        } else if (to <= from) {
+            throw new IllegalArgumentException("'to' can not be less or equals than 'from'");
+        }
+
         ArrayTaskList arrayTaskList = new ArrayTaskListImpl();
 
         for (int i = 0; i < this.size(); i++) {

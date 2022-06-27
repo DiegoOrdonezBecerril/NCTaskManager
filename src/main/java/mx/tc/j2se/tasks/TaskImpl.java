@@ -22,10 +22,14 @@ public class TaskImpl implements Task {
      *
      * @param title the argument who will be set as task title
      * @param time the argument who will be set as time
+     *
+     * @throws IllegalArgumentException when time is a negative number or when title is null.
      */
     public TaskImpl(String title, int time) throws IllegalArgumentException {
         if (time < 0) {
             throw new IllegalArgumentException("Time can not be a negative number");
+        } else if (title == null) {
+            throw new IllegalArgumentException("The title can not be null");
         }
 
         this.active = false;
@@ -42,6 +46,10 @@ public class TaskImpl implements Task {
      * @param start the argument who will be set as start time
      * @param end the argument who will be set as end time
      * @param interval the argument who will be set as repeat interval
+     *
+     * @throws IllegalArgumentException when the start time is a negative number, the end time is
+     * greater than start time or when repeat interval is equals or less than zero or when title is
+     * null.
      */
     public TaskImpl(String title, int start, int end, int interval) throws IllegalArgumentException {
         if (start < 0) {
@@ -50,6 +58,8 @@ public class TaskImpl implements Task {
             throw new IllegalArgumentException("The end time must be greater than start time");
         } else if (interval <= 0) {
             throw new IllegalArgumentException("The repeat interval can not be equals or less than zero");
+        } else if (title == null) {
+            throw new IllegalArgumentException("The title can not be null");
         }
 
         this.active = false;
@@ -69,9 +79,15 @@ public class TaskImpl implements Task {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException when title is null
      */
     @Override
-    public void setTitle(String title) {
+    public void setTitle(String title) throws IllegalArgumentException {
+        if (title == null) {
+            throw new IllegalArgumentException("The title can not be null");
+        }
+
         this.title = title;
     }
 
@@ -101,6 +117,8 @@ public class TaskImpl implements Task {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException when time is a negative number.
      */
     @Override
     public void setTime(int time) throws IllegalArgumentException {
@@ -144,6 +162,9 @@ public class TaskImpl implements Task {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException when the start time is a negative number, the end time is
+     * greater than start time or when repeat interval is equals or less than zero.
      */
     @Override
     public void setTime(int start, int end, int interval) throws IllegalArgumentException {
