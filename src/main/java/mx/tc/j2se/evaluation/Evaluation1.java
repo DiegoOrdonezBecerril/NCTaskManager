@@ -1,5 +1,8 @@
 package mx.tc.j2se.evaluation;
 
+/**
+ * Main evaluation class
+ */
 public class Evaluation1 {
     public static void main(String[] args) {
         try {
@@ -13,6 +16,13 @@ public class Evaluation1 {
         System.out.printf("Biggest circle radius: %s \n", circles[biggestCircleIndex].getRadius());
     }
 
+    /**
+     * Returns the index of the biggest circle in the given array, if the array is empty, it returns -1
+     *
+     * @param array the array to find the biggest circle
+     *
+     * @return the index of the biggest circle in the array
+     */
     public int biggestCircle(Circle[] array) {
         int biggest = -1;
         for (int i = 0; i < array.length; i++) {
