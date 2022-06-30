@@ -1,9 +1,9 @@
 package mx.tc.j2se.tasks;
 
 /**
- * The class ArrayTaskListImpl is the main ArrayTaskList interface implementation
+ * The class ArrayTaskListImpl allow to save task in an array
  */
-public class ArrayTaskListImpl implements ArrayTaskList {
+public class ArrayTaskListImpl extends AbstractTaskList {
     private Task[] list = new Task[0];
 
     /**
@@ -13,8 +13,6 @@ public class ArrayTaskListImpl implements ArrayTaskList {
 
     /**
      * {@inheritDoc}
-     *
-     * @throws IllegalArgumentException when task is null.
      */
     @Override
     public void add(Task task) throws IllegalArgumentException {
@@ -65,41 +63,13 @@ public class ArrayTaskListImpl implements ArrayTaskList {
 
     /**
      * {@inheritDoc}
-     *
-     * @throws IndexOutOfBoundsException
      */
     @Override
     public Task getTask(int index) throws IndexOutOfBoundsException {
-        if (this.size() <= index) {
-            throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= this.size()) {
+            throw new IndexOutOfBoundsException("Index must be in the array limits, it can not be less than zero");
         }
 
         return this.list[index];
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @throws IllegalArgumentException when 'from' or 'to' are negative numbers or when 'to' is less or equals than 'from'
-     */
-    @Override
-    public ArrayTaskList incoming(int from, int to) throws IllegalArgumentException {
-        if (from < 0 || to < 0) {
-            throw new IllegalArgumentException("'from' or 'to' can not be a negative number");
-        } else if (to <= from) {
-            throw new IllegalArgumentException("'to' can not be less or equals than 'from'");
-        }
-
-        ArrayTaskList arrayTaskList = new ArrayTaskListImpl();
-
-        for (int i = 0; i < this.size(); i++) {
-            Task task = this.getTask(i);
-            int next = task != null ? task.nextTimeAfter(from) : -1;
-            if (next > from && next < to) {
-                arrayTaskList.add(task);
-            }
-        }
-
-        return arrayTaskList;
     }
 }

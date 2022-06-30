@@ -1,11 +1,12 @@
 package mx.tc.j2se.tasks;
 
 /**
- * The class LinkedTaskListImpl is the main LinkedTaskList interface implementation
+ * The class LinkedTaskListImpl allow to save task in a simple linked list
  */
-public class LinkedTaskListImpl implements LinkedTaskList {
+public class LinkedTaskListImpl extends AbstractTaskList {
     private Node first;
     private Node current;
+    private int size = 0;
 
     /**
      * Constructs a linked task list without set any property
@@ -14,8 +15,6 @@ public class LinkedTaskListImpl implements LinkedTaskList {
 
     /**
      * {@inheritDoc}
-     *
-     * @throws IllegalArgumentException when task is null.
      */
     @Override
     public void add(Task task) throws IllegalArgumentException {
@@ -31,6 +30,8 @@ public class LinkedTaskListImpl implements LinkedTaskList {
             this.current.next = node;
             this.current = node;
         }
+
+        this.size++;
     }
 
     /**
@@ -51,6 +52,7 @@ public class LinkedTaskListImpl implements LinkedTaskList {
                 }
 
                 removed = true;
+                this.size--;
             }
 
             lastNode = node;
@@ -65,21 +67,11 @@ public class LinkedTaskListImpl implements LinkedTaskList {
      */
     @Override
     public int size() {
-        int counter = 0;
-        Node node = this.first;
-
-        while (node != null) {
-            counter++;
-            node = node.next;
-        }
-
-        return counter;
+        return this.size;
     }
 
     /**
      * {@inheritDoc}
-     *
-     * @throws IndexOutOfBoundsException when index is less than zero or when is equals or greater than the list size
      */
     @Override
     public Task getTask(int index) throws IndexOutOfBoundsException {
@@ -103,34 +95,7 @@ public class LinkedTaskListImpl implements LinkedTaskList {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @throws IllegalArgumentException when 'from' or 'to' are negative numbers or when 'to' is less or equals than 'from'
-     */
-    @Override
-    public LinkedTaskList incoming(int from, int to) throws IllegalArgumentException {
-        if (from < 0 || to < 0) {
-            throw new IllegalArgumentException("'from' or 'to' can not be a negative number");
-        } else if (to <= from) {
-            throw new IllegalArgumentException("'to' can not be less or equals than 'from'");
-        }
-
-        LinkedTaskList linkedTaskList = new LinkedTaskListImpl();
-        Node node = this.first;
-
-        while (node != null) {
-            int next = node.task.nextTimeAfter(from);
-            if (next > from && next < to) {
-                linkedTaskList.add(node.task);
-            }
-            node = node.next;
-        }
-
-        return linkedTaskList;
-    }
-
-    /**
-     * The class Node is the node representation for the LinkedTaskList
+     * The class Node is the node representation for a linked task list
      */
     private static class Node {
         private final Task task;
@@ -143,7 +108,7 @@ public class LinkedTaskListImpl implements LinkedTaskList {
          *
          * @throws IllegalArgumentException when task is null.
          */
-        public Node(Task task) throws IllegalArgumentException {
+        private Node(Task task) throws IllegalArgumentException {
             if (task == null) {
                 throw new IllegalArgumentException("Task can not be null");
             }

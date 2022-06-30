@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class LinkedTaskListImplTest {
     @Test
     public void emptyConstructorTest() {
-        LinkedTaskList linkedTaskList = new LinkedTaskListImpl();
+        AbstractTaskList linkedTaskList = new LinkedTaskListImpl();
         assertNotEquals(null, linkedTaskList);
     }
 
     @Test
     public void addTest() {
-        LinkedTaskList linkedTaskList = new LinkedTaskListImpl();
+        AbstractTaskList linkedTaskList = new LinkedTaskListImpl();
         Task task = new TaskImpl("Meeting in a café", 10);
 
         linkedTaskList.add(task);
@@ -25,7 +25,7 @@ public class LinkedTaskListImplTest {
 
     @Test
     public void removeTest() {
-        LinkedTaskList linkedTaskList = new LinkedTaskListImpl();
+        AbstractTaskList linkedTaskList = new LinkedTaskListImpl();
         Task task = new TaskImpl("Meeting in a café", 10);
 
         linkedTaskList.add(task);
@@ -38,7 +38,7 @@ public class LinkedTaskListImplTest {
 
     @Test
     public void sizeTest() {
-        LinkedTaskList linkedTaskList = new LinkedTaskListImpl();
+        AbstractTaskList linkedTaskList = new LinkedTaskListImpl();
         Task task = new TaskImpl("Meeting in a café", 10);
 
         for(int i = 0; i < 10; i++){
@@ -51,7 +51,7 @@ public class LinkedTaskListImplTest {
 
     @Test
     public void getTaskTest() {
-        LinkedTaskList linkedTaskList = new LinkedTaskListImpl();
+        AbstractTaskList linkedTaskList = new LinkedTaskListImpl();
         Task task1 = new TaskImpl("Meeting in a café", 10);
         Task task2 = new TaskImpl("Meeting with friends", 10, 20, 2);
 
@@ -60,15 +60,11 @@ public class LinkedTaskListImplTest {
 
         assertEquals(task1, linkedTaskList.getTask(0));
         assertEquals(task2, linkedTaskList.getTask(1));
-
-        LinkedTaskList linkedTaskList2 = new LinkedTaskListImpl();
-
-        assertThrowsExactly(IndexOutOfBoundsException.class, () -> linkedTaskList2.getTask(2));
     }
 
     @Test
     public void incomingTest() {
-        LinkedTaskList linkedTaskList = new LinkedTaskListImpl();
+        AbstractTaskList linkedTaskList = new LinkedTaskListImpl();
         Task task1 = new TaskImpl("Meeting in a café", 10);
         Task task2 = new TaskImpl("Meeting with friends", 10, 20, 2);
         Task task3 = new TaskImpl("Taking medication", 5, 15, 8);
@@ -84,7 +80,7 @@ public class LinkedTaskListImplTest {
         linkedTaskList.add(task3);
         linkedTaskList.add(task4);
 
-        LinkedTaskList subset = linkedTaskList.incoming(10, 16);
+        AbstractTaskList subset = linkedTaskList.incoming(10, 16);
 
         assertEquals(2, subset.size());
         assertEquals(task2, subset.getTask(0));

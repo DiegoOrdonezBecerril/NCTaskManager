@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ArrayTaskListImplTest {
     @Test
     public void emptyConstructorTest() {
-        ArrayTaskList arrayTaskList = new ArrayTaskListImpl();
+        AbstractTaskList arrayTaskList = new ArrayTaskListImpl();
         assertNotEquals(null, arrayTaskList);
     }
 
     @Test
     public void addTest() {
-        ArrayTaskList arrayTaskList = new ArrayTaskListImpl();
+        AbstractTaskList arrayTaskList = new ArrayTaskListImpl();
         Task task = new TaskImpl("Meeting in a café", 10);
 
         arrayTaskList.add(task);
@@ -24,7 +24,7 @@ public class ArrayTaskListImplTest {
 
     @Test
     public void removeTest() {
-        ArrayTaskList arrayTaskList = new ArrayTaskListImpl();
+        AbstractTaskList arrayTaskList = new ArrayTaskListImpl();
         Task task = new TaskImpl("Meeting in a café", 10);
 
         arrayTaskList.add(task);
@@ -37,7 +37,7 @@ public class ArrayTaskListImplTest {
 
     @Test
     public void sizeTest() {
-        ArrayTaskList arrayTaskList = new ArrayTaskListImpl();
+        AbstractTaskList arrayTaskList = new ArrayTaskListImpl();
         Task task = new TaskImpl("Meeting in a café", 10);
 
         for(int i = 0; i < 10; i++){
@@ -50,7 +50,7 @@ public class ArrayTaskListImplTest {
 
     @Test
     public void getTaskTest() {
-        ArrayTaskList arrayTaskList = new ArrayTaskListImpl();
+        AbstractTaskList arrayTaskList = new ArrayTaskListImpl();
         Task task1 = new TaskImpl("Meeting in a café", 10);
         Task task2 = new TaskImpl("Meeting with friends", 10, 20, 2);
 
@@ -63,7 +63,7 @@ public class ArrayTaskListImplTest {
 
     @Test
     public void incomingTest() {
-        ArrayTaskList arrayTaskList = new ArrayTaskListImpl();
+        AbstractTaskList arrayTaskList = new ArrayTaskListImpl();
         Task task1 = new TaskImpl("Meeting in a café", 10);
         Task task2 = new TaskImpl("Meeting with friends", 10, 20, 2);
         Task task3 = new TaskImpl("Taking medication", 5, 15, 8);
@@ -79,7 +79,7 @@ public class ArrayTaskListImplTest {
         arrayTaskList.add(task3);
         arrayTaskList.add(task4);
 
-        ArrayTaskList subset = arrayTaskList.incoming(10, 16);
+        AbstractTaskList subset = arrayTaskList.incoming(10, 16);
 
         assertEquals(2, subset.size());
         assertEquals(task2, subset.getTask(0));
